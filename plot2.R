@@ -36,8 +36,8 @@ if(!exists("HouseholdConsumption_days")){
 ######################################################
 
 # Create the plot
-hist(HouseholdConsumption_days$Global_active_power,main = "Global Active Power", xlab = "Global Active Power (kilowatts)", col = "red")
+with(HouseholdConsumption_days,plot(y = Global_active_power,x = completeTime,type = "l",ylab = "Global Active Power (kilowatts)",xlab = ""))
 
 # Copy the plot in a PNG file located in the working directory
-dev.copy(png, file="plot1.png")
+dev.copy(png, file="plot2.png")
 dev.off()

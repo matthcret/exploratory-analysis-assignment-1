@@ -36,8 +36,21 @@ if(!exists("HouseholdConsumption_days")){
 ######################################################
 
 # Create the plot
-hist(HouseholdConsumption_days$Global_active_power,main = "Global Active Power", xlab = "Global Active Power (kilowatts)", col = "red")
+color_submetering <- c("black","red","blue")
+labels_submetering <- c("Sub_metering_1","Sub_metering_2","Sub_metering_3")
+
+par(mfrow=c(2,2), mar=c(4,4,2,2), oma=c(1,1,1,1))
+with(HouseholdConsumption_days,{
+  plot(y = Global_active_power,x = completeTime,type = "l",ylab = "Global Active Power",xlab = "")
+  plot(y = Voltage,x = completeTime,type = "l")
+  plot(y = HouseholdConsumption_days$Sub_metering_1,x = HouseholdConsumption_days$completeTime,col = color_submetering[1],type = "l",ylab = "Energy sub metering",xlab = "")
+  lines(y = HouseholdConsumption_days$Sub_metering_2,x = HouseholdConsumption_days$completeTime,col = color_submetering[2])
+  lines(y = HouseholdConsumption_days$Sub_metering_3,x = HouseholdConsumption_days$completeTime,col = color_submetering[3])
+  legend("topright",bty="n", legend = labels_submetering, col = color_submetering, lty = 1,lwd = 2)
+  plot(y = Global_reactive_power,x = completeTime,type = "l")
+})
+par(mfrow=c(1,1))
 
 # Copy the plot in a PNG file located in the working directory
-dev.copy(png, file="plot1.png")
+dev.copy(png, file="plot4.png",width=560)
 dev.off()
